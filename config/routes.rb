@@ -1,6 +1,21 @@
 Rails.application.routes.draw do
   root "subs#index"
-  resources :subs
+
+  resources :subs do
+    resources :topics
+  end
+
+  # resources :topics do 
+  #   resources :comments
+  # end
+
+  scope "topics/:topic_id", as: "topic" do
+    resources :comments, only: [:new, :create]
+  end
+
+
+
+
   # resources :subs, only: [:new, :create, :edit, :update]
   # resources :subs, except: [:index, :show, :delete]
 
